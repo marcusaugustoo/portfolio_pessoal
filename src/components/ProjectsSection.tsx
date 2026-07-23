@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Globe, Github, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Globe, Github, ChevronLeft, ChevronRight, X } from "lucide-react";
 import projectCop15 from "@/assets/cop15/Home.png";
 import zonas from "@/assets/cop15/zonas.png";
 import PqCG from "@/assets/cop15/PqCG_.png";
@@ -76,7 +76,7 @@ const projects: Project[] = [
   }
 ];
 
-const ImageCarousel = ({ images, title }: { images: (string | null)[]; title: string }) => {
+const ImageCarousel = ({ images, title, onImageClick }: { images: (string | null)[]; title: string; onImageClick: (index: number) => void }) => {
   const [current, setCurrent] = useState(0);
 
   const prev = () => setCurrent((c) => (c === 0 ? images.length - 1 : c - 1));
@@ -85,7 +85,12 @@ const ImageCarousel = ({ images, title }: { images: (string | null)[]; title: st
   return (
     <div className="relative w-full aspect-[4/3] overflow-hidden bg-white/5 mb-6 group rounded-t-lg">
       {images[current] ? (
-        <img src={images[current]!} alt={`${title} - ${current + 1}`} className="w-full h-full object-cover transition-opacity duration-300" />
+        <img 
+          src={images[current]!} 
+          alt={`${title} - ${current + 1}`} 
+          className="w-full h-full object-cover transition-opacity duration-300 cursor-pointer" 
+          onClick={() => onImageClick(current)}
+        />
       ) : (
         <div className="w-full h-full flex items-center justify-center">
           <span className="text-white/40 text-sm">Imagem não disponível</span>
@@ -123,7 +128,7 @@ const ImageCarousel = ({ images, title }: { images: (string | null)[]; title: st
   );
 };
 
-const ProjectCard = ({ project, index }: { project: Project; index: number }) => (
+const ProjectCard = ({ project, index, onImageClick }: { project: Project; index: number; onImageClick: (data: { images: (string | null)[]; index: number }) => void }) => (
   <motion.div
     initial={{ opacity: 0, y: 40 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -131,7 +136,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
     transition={{ duration: 0.5, delay: index * 0.1 }}
     className="flex flex-col rounded-xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.04] transition-colors overflow-hidden"
   >
-    <ImageCarousel images={project.images} title={project.title} />
+    <ImageCarousel images={project.images} title={project.title} onImageClick={(idx) => onImageClick({ images: project.images, index: idx })} />
     
     <div className="flex flex-col flex-1 px-6 pb-6">
       <h3 className="text-2xl font-bold font-display text-white mb-3">{project.title}</h3>
@@ -165,26 +170,88 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
   </motion.div>
 );
 
-const ProjectsSection = () => (
-  <section id="projetos" className="py-24">
-    <div className="max-w-6xl mx-auto px-6 w-full">
-      <motion.h2
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="text-4xl md:text-5xl font-bold font-display text-white mb-16"
-      >
-        Projetos
-      </motion.h2>
+const ProjectsSection = () => {
+  const [modalData, setModalData] = useState<{ images: (string | null)[]; index: number } | null>(null);
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project, i) => (
-          <ProjectCard key={project.title} project={project} index={i} />
-        ))}
-      </div>
-    </div>
-  </section>
-);
+  const modalPrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setModalData(d => d ? { ...d, index: d.index === 0 ? d.images.length - 1 : d.index - 1 } : null);
+  };
+
+  const modalNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setModalData(d => d ? { ...d, index: d.index === d.images.length - 1 ? 0 : d.index + 1 } : null);
+  };
+
+  return (
+    <>
+      <section id="projetos" className="py-24">
+        <div className="max-w-6xl mx-auto px-6 w-full">
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-4xl md:text-5xl font-bold font-display text-white mb-16"
+          >
+            Projetos
+          </motion.h2>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((project, i) => (
+              <ProjectCard key={project.title} project={project} index={i} onImageClick={setModalData} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <AnimatePresence>
+        {modalData && modalData.images[modalData.index] && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 md:p-8"
+            onClick={() => setModalData(null)}
+          >
+            <button
+              className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-10"
+              onClick={() => setModalData(null)}
+            >
+              <X className="w-8 h-8" />
+            </button>
+            
+            {modalData.images.length > 1 && (
+              <>
+                <button
+                  onClick={modalPrev}
+                  className="absolute left-4 md:left-12 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center hover:bg-black/80 transition-colors z-10"
+                >
+                  <ChevronLeft className="w-6 h-6 text-white" />
+                </button>
+                <button
+                  onClick={modalNext}
+                  className="absolute right-4 md:right-12 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center hover:bg-black/80 transition-colors z-10"
+                >
+                  <ChevronRight className="w-6 h-6 text-white" />
+                </button>
+              </>
+            )}
+
+            <motion.img
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+              src={modalData.images[modalData.index]!}
+              alt="Imagem do Projeto Ampliada"
+              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
 
 export default ProjectsSection;
