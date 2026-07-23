@@ -86,10 +86,10 @@ const HeroSection = () => {
               Estudante de Ciência da Computação pela Faculdade de Computação da UFMS.
             </p>
             <p>
-              Atuo desde o design no Figma até a implementação, sempre priorizando usabilidade, organização visual e boas práticas de código.
+              Atuação desde o design no Figma até a implementação, sempre priorizando usabilidade, organização visual e boas práticas de código.
             </p>
             <p>
-              Busco evoluir constantemente e aplicar design e tecnologia para resolver problemas reais.
+              Busca constante por evolução, aplicando design e tecnologia para resolver problemas reais.
             </p>
           </div>
         </motion.div>

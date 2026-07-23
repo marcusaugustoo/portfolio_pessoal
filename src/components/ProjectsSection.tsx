@@ -34,42 +34,42 @@ const projects: Project[] = [
   {
     title: "COP15",
     description:
-      "Atuei como desenvolvedor front-end na criação da landing page da COP 15, projeto desenvolvido pela Mega Júnior para uma instituição internacional. Além disso, participei no Integra e na FETEC, na UFMS para a apresentação do mesmo.",
+      "Atuação como desenvolvedor front-end na criação da landing page da COP 15, projeto desenvolvido pela Mega Júnior para uma instituição internacional. Além disso, contou com participação no Integra e na FETEC, na UFMS para a apresentação do mesmo.",
     images: [projectCop15, zonas, PqCG, Animais],
     link: "https://cop15.ufms.br/",
   },
   {
     title: "SECOMP 2026",
     description:
-      "Atuei como designer e desenvolvedor front-end na criação da landing page da Secomp de 2026, projeto desenvolvido pela Mega Júnior para o evento de computação da UFMS.",
+      "Atuação como designer e desenvolvedor front-end na criação da landing page da Secomp de 2026, projeto desenvolvido pela Mega Júnior para o evento de computação da UFMS.",
     images: [secomp1, secomp2, secomp3],
     link: "https://facom.ufms.br/secomp/",
   },
   {
     title: "ERAD-CO 2026",
     description:
-      "Atuei como designer e desenvolvedor front-end na criação da landing page da ERAD - CO de 2026, projeto desenvolvido pela Mega Júnior para o evento de computação da UFMS.",
+      "Atuação como designer e desenvolvedor front-end na criação da landing page da ERAD - CO de 2026, projeto desenvolvido pela Mega Júnior para o evento de computação da UFMS.",
     images: [erad1, erad2, erad3],
     link: "https://www.facom.ufms.br/erad-co/",
   },
   {
     title: "Frete App",
     description:
-      "Aplicativo de gerenciamento de fretes desenvolvido a partir de uma necessidade real, visando simplificar o controle financeiro e operacional, substituindo planilhas por um sistema centralizado e intuitivo. Atuei como responsável pelo design e front-end.",
+      "Aplicativo de gerenciamento de fretes desenvolvido a partir de uma necessidade real, visando simplificar o controle financeiro e operacional, substituindo planilhas por um sistema centralizado e intuitivo. Atuação como responsável pelo design e front-end.",
     images: [carregar, home, lancar, relatorio],
     link: "https://gerenciamento-de-frete.vercel.app/",
   },
   {
     title: "Hortisys",
     description:
-      "Plataforma para gerenciamento de hortifrutis, desde o cadastro até o gerenciamento completo. Tive participação no design e front-end.",
+      "Plataforma para gerenciamento de hortifrutis, desde o cadastro até o gerenciamento completo. Participação no design e front-end.",
     images: [hortisys],
     link: "https://www.hortisys.com.br/",
   },
   {
     title: "GoPlan",
     description:
-      "Aplicação desktop para geração, gerenciamento e impressão de treinos personalizados, desenvolvida com foco em usabilidade e funcionamento offline. Atuei no design e desenvolvimento front-end.",
+      "Aplicação desktop para geração, gerenciamento e impressão de treinos personalizados, desenvolvida com foco em usabilidade e funcionamento offline. Atuação no design e desenvolvimento front-end.",
     images: [inicio, apos, seleciona, planilha, concluido],
     link: "https://github.com/marcusaugustoo/projeto-sistema-de-academia.git",
     github: "https://github.com/marcusaugustoo/projeto-sistema-de-academia.git"
